@@ -10,19 +10,12 @@ app.use(express.json());
 
 
 app.post('/signup',async(req ,res)=>{
-    {/*const user=new User({
-        firstName:"buggu",
-        lastName:"summa",
-        emailId:"buggu@gmail.com",
-    
-    });*/}
-    //console.log(req.body);
-    
+  
     try{
         validatesignup(req);
         const {firstName,lastName,emailId,password,age,gender,skills}=req.body;
         const hasshedpassword= await bcrypt.hash(password,10);
-        console.log(hasshedpassword);
+       // console.log(hasshedpassword);
         const user= new User({firstName,lastName,emailId,age,gender,skills,password:hasshedpassword});
         await user.save();
     res.send("user added successfully");
@@ -34,10 +27,34 @@ app.post('/signup',async(req ,res)=>{
     
 })
 
+app.post('/login',async(req,res)=>{
+    try{
+        const{firstName,emailId,password}=req.body;
+        const user= await User.findOne({emailId,firstName});
+        if(!user){
+           return  res.status(400).send("Invalid credentials");
+        }
+        const ismatch= await bcrypt.compare(password, user.password);
+        if(!ismatch){
+           return  res.status(400).send("Invalid credentials");
+        }
+        //yahan pe 1 token bhej do cookies k through
+      return res.send("login successfull")
+
+
+    }catch(error){
+       return res.send({message:error.message})
+
+    }
+})
+
 //get user by email
 app.get('/user',async(req,res)=>{
-    const useremail=req.body.emailId;
+    //yahan is route pe aate hi pehle hi check karna hoga ki token valid hai ya nhi , are fir wo jo token kis user ka hai
+    //check karke usku uska data dena hoga
+    
     try{
+        const useremail=req.body.emailId;
       const user=  await User.findOne({emailId:useremail});
 
       if(user.length===0){
