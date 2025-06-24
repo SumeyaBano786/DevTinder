@@ -1,4 +1,4 @@
-const validator=require('validator');
+{/*const validator=require('validator');
 //const { validate } = require('../models/user');
 
 const validatesignup=(req)=>{
@@ -18,4 +18,4 @@ const validatesignup=(req)=>{
     }
 }
 
-module.exports={validatesignup};
+module.exports={validatesignup};*/}
