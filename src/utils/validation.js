@@ -1,4 +1,5 @@
-{/*const validator=require('validator');
+const validator=require('validator');
+const User=require('../models/user');
 //const { validate } = require('../models/user');
 
 const validatesignup=(req)=>{
@@ -18,4 +19,16 @@ const validatesignup=(req)=>{
     }
 }
 
-module.exports={validatesignup};*/}
+
+const validateupdate=(req)=>{
+
+    const ALLOWED_UPDATES=["photoUrl","about","gender","age","skills","firstName","lastName"];
+
+    const isupdateallowed=Object.keys(req.body).every((field)=>
+        ALLOWED_UPDATES.includes(field)
+    );
+    return isupdateallowed;
+
+
+}
+module.exports={validatesignup,validateupdate};
