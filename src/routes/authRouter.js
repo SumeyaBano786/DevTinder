@@ -1,7 +1,7 @@
 const express=require('express')
 const authRouter=express.Router();
 const validator=require('validator')
-const User=require('../models/user');
+const User=require('../models/user'); 
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const secretKey="#1240";
