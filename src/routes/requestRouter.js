@@ -89,9 +89,9 @@ requestRouter.post('/request/review/:status/:requestId',userAuth,async(req,res)=
             return res.status(400).json({message:"status not allowed"});
         }
         const connectionRequest = await ConnectionRequest.findById(requestId);
-console.log("Found Request:", connectionRequest);
-console.log("Expected toUserId:", loggedInUser.id);
-console.log("Expected Status: interested");
+//console.log("Found Request:", connectionRequest);
+//console.log("Expected toUserId:", loggedInUser.id);
+//console.log("Expected Status: interested");
 
 if (!connectionRequest) {
     return res.status(404).json({ message: "connection request not found" });
