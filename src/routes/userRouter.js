@@ -12,7 +12,7 @@ userRouter.get('/user/requests/received', userAuth, async(req ,res)=>{
         const ConnectionRequests= await ConnectionRequest.find({
               toUserId: loggedInUser.id,
               status:"interested"
-        }).populate("fromUserId", ["firstName", "lastName", "photoURl", "age", "gender", "about", "skills"]);
+        }).populate("fromUserId", ["firstName", "lastName", "photoUrl", "age", "gender", "about", "skills"]);
       //  console.log(ConnectionRequests);
 
         res.json({
@@ -36,7 +36,7 @@ userRouter.get('/user/connections',userAuth, async(req,res)=>{
                 {fromUserId:loggedInUser.id, status:"accepted"}
             ]
 
-        }).populate("fromUserId", ["firstName", "lastName", "photoURl", "age", "gender", "about", "skills"]).populate("toUserId", ["firstName", "lastName", "photoURl", "age", "gender", "about", "skills"]);
+        }).populate("fromUserId", ["firstName", "lastName", "photoUrl", "age", "gender", "about", "skills"]).populate("toUserId", ["firstName", "lastName", "photoUrl", "age", "gender", "about", "skills"]);
 
         const data= connectionrequests.map((row)=>{
             if(row.fromUserId.id.toString()=== loggedInUser.id.toString()){
@@ -65,8 +65,13 @@ userRouter.get('/feed', userAuth, async(req,res)=>{
         const connectionrequests=await ConnectionRequest.find({
             $or:[
                 {fromUserId:loggedInUser.id},{toUserId:loggedInUser.id}
+                 
             ]
+            
         }).select("fromUserId toUserId");
+        
+
+
 
         const hideUsersFromFeed = new Set();
         connectionrequests.forEach((req)=>{
@@ -78,7 +83,7 @@ userRouter.get('/feed', userAuth, async(req,res)=>{
          { _id:{$nin: Array.from(hideUsersFromFeed)}},
          {_id:{$ne: loggedInUser.id}},
             ]
-        }).select("firstName lastName photoURl age gender about  skills").skip(skip).limit(limit);
+        }).select("firstName lastName photoUrl age gender about  skills").skip(skip).limit(limit);
 
         res.send(users);
 

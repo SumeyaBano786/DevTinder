@@ -48,8 +48,10 @@ authRouter.post('/login',async(req,res)=>{
 
         )
         res.cookie("token", token,{expires:new Date(Date.now()+7*24*60*60*1000)});
+       
+
         
-      return res.send("login successfull")
+      return res.send(user);
 
 
     }catch(error){
@@ -60,10 +62,16 @@ authRouter.post('/login',async(req,res)=>{
 
 
 authRouter.post('/logout',async(req,res)=>{
-    res.cookie("token",null,{expires:new Date(Date.now())});
-   // res.send();
-    return res.send("logout successfully");
+   res.cookie("token",null,{expires:new Date(Date.now())});
+  
+return res.send("logout successfully");
+
 })
+
+
+
+
+
 
 authRouter.patch('/profile/edit',userAuth,async(req,res)=>{
     try{

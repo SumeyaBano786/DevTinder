@@ -108,7 +108,7 @@ if (connectionRequest.status !== "interested") {
         connectionRequest.status=status;
         const data= await connectionRequest.save();
 
-        res.json({message:"connection request"+ status, data});
+        res.status(200).json({message:"connection request"+ status, data});
     }catch(error){
         return res.send(error.message);
     }

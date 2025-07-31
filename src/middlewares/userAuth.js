@@ -4,7 +4,7 @@ const jwt=require('jsonwebtoken');
 const userAuth=async(req,res,next)=>{
       const token=req.cookies.token;
        if(!token){
-      return  res.send("token is missing");
+      return  res.status(401).send("token is missing");
     }
     try{
         
