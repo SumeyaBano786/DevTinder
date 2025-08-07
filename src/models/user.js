@@ -53,11 +53,7 @@ const userSchema=new mongoose.Schema({
     photoUrl:{
      type:String,
      default:"https://sipl.ind.in/wp-content/uploads/2022/07/dummy-user.png",
-      validate(value){
-          if(!validator.isURL(value)){
-               throw new Error("invalid photo URL");
-          }
-         }
+      
     },
     about:{
      type:String,

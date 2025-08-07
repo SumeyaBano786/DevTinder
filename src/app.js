@@ -2,6 +2,7 @@ const express= require('express');
 const http = require("http");
 const app=express();
 const cors=require('cors');
+require('dotenv').config(); // Add this at the top
 const connectDB=require('./config/database');
 const User=require('./models/user');
 const userAuth=require('./middlewares/userAuth')
